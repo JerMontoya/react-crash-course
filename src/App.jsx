@@ -7,8 +7,19 @@ import React, { useState } from "react";
 import Counter from "./components/Counter";
 
 function App() {
-  
   const [showModal, setShowModal] = useState(false);
+
+  function onTodoDelete() {
+    setShowModal(true);
+  }
+
+  function cancelCloseModal() {
+    setShowModal(false);
+  }
+
+  function confirmCloseModal() {
+    setShowModal(false);
+  }
 
   return (
     <>
@@ -23,11 +34,17 @@ function App() {
         <button onClick={() => setShowModal(true)}>Add To Do Item</button>
       </div>
       <div className="todo__wrapper">
-        <Todo title="Finish Frontend Simplified" />
-        <Todo title="Finish Interview Section" />
-        <Todo title="Land $100K Job" />
+        <Todo onTodoDelete={onTodoDelete} title="Finish Frontend Simplified" />
+        <Todo onTodoDelete={onTodoDelete} title="Finish Interview Section" />
+        <Todo onTodoDelete={onTodoDelete} title="Land $100K Job" />
       </div>
-      {showModal && <Modal title="Are ya sure??" />}
+      {showModal && (
+        <Modal
+          confirmCloseModal={confirmCloseModal}
+          cancelCloseModal={cancelCloseModal}
+          title="Are ya sure??"
+        />
+      )}
     </>
   );
 }
